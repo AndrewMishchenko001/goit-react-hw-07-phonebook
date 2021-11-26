@@ -1,33 +1,27 @@
-import { ADD_CONTACTS, UPDATE_FILTER, DELETE_CONTACTS } from "./contacts-types";
 import { createAction } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
+import {
+  ADD_CONTACT_REQUEST,
+  ADD_CONTACT_SUCCESS,
+  ADD_CONTACT_ERROR,
+  FETCH_CONTACT_REQUEST,
+  FETCH_CONTACT_SUCCESS,
+  FETCH_CONTACT_ERROR,
+  DELETE_CONTACT_REQUEST,
+  DELETE_CONTACT_SUCCESS,
+  DELETE_CONTACT_ERROR,
+  FILTER_CONTACT,
+} from "./contacts-types";
 
-export const addContacts = createAction(ADD_CONTACTS, (name, number) => ({
-  payload: {
-    id: uuidv4(),
-    name,
-    number,
-  },
-}));
+export const addContactRequest = createAction(ADD_CONTACT_REQUEST);
+export const addContactSuccess = createAction(ADD_CONTACT_SUCCESS);
+export const addContactError = createAction(ADD_CONTACT_ERROR);
 
-export const deleteContacts = createAction(DELETE_CONTACTS);
-export const updateFilter = createAction(UPDATE_FILTER);
+export const fetchContactRequest = createAction(FETCH_CONTACT_REQUEST);
+export const fetchContactSuccess = createAction(FETCH_CONTACT_SUCCESS);
+export const fetchContactsError = createAction(FETCH_CONTACT_ERROR);
 
-// export const addContacts = (id, name, number) => ({
-//   type: actionTypes.ADD_CONTACTS,
-//   payload: { id, name, number },
-// });
+export const deleteContactRequest = createAction(DELETE_CONTACT_REQUEST);
+export const deleteContactSuccess = createAction(DELETE_CONTACT_SUCCESS);
+export const deleteContactError = createAction(DELETE_CONTACT_ERROR);
 
-// export const deleteContacts = (id) => ({
-//   type: actionTypes.DELETE_CONTACTS,
-//   payload: { id },
-// });
-
-// export const updateFilter = (text) => ({
-//   type: actionTypes.UPDATE_FILTER,
-//   payload: { text },
-// });
-
-// export const deleteFilter = () => ({
-//   type: actionTypes.CLEAR_FILTER,
-// });
+export const filterContact = createAction(FILTER_CONTACT);
