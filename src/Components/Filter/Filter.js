@@ -1,25 +1,31 @@
-import React from "react";
 import s from "./Filter.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilter } from "../../redux/contacts/contacts-selector";
-import { updateFilter } from "../../redux/contacts/contacts-action";
+import { contactsActions, contactsSelectors } from "../../redux/contacts";
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
+  const filter = useSelector(contactsSelectors.getFilter);
+  const contacts = useSelector(contactsSelectors.getItems);
+  const error = useSelector(contactsSelectors.getError);
 
   return (
-    <label className={s.label}>
-      <p className={s.contacts}>
-        Find contacts by name
-        <input
-          className={s.input}
-          type="text"
-          onChange={(e) => dispatch(updateFilter(e.target.value))}
-          value={filter}
-        />
-      </p>
-    </label>
+    <>
+      {contacts.length > 0 && !error && (
+        <label className={s.label}>
+          <p className={s.contacts}>
+            Find contacts by name
+            <input
+              className={s.input}
+              type="text"
+              onChange={(e) =>
+                dispatch(contactsActions.filterContact(e.target.value))
+              }
+              value={filter}
+            />
+          </p>
+        </label>
+      )}
+    </>
   );
 };
 

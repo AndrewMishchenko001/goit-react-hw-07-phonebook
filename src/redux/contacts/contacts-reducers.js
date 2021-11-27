@@ -1,40 +1,53 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import { addContacts, deleteContacts, updateFilter } from "./contacts-action";
+import {
+  addContactError,
+  addContactRequest,
+  addContactSuccess,
+  deleteContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  fetchContactRequest,
+  fetchContactsError,
+  fetchContactSuccess,
+  filterContact,
+} from "./contacts-action";
 
 const items = createReducer([], {
-  [addContacts]: (state, { payload }) => [payload, ...state],
-  [deleteContacts]: (state, { payload }) =>
-    state.filter((contact) => contact.id !== payload),
+  [fetchContactSuccess]: (_, { payload }) => payload,
+  [addContactSuccess]: (state, { payload }) => [...state, payload],
+  [deleteContactSuccess]: (state, { payload }) =>
+    state.filter((person) => person.id !== payload),
 });
 
 const filter = createReducer("", {
-  [updateFilter]: (_, { payload }) => payload,
+  [filterContact]: (_, { payload }) => payload,
+});
+
+const error = createReducer(null, {
+  [fetchContactsError]: (_, { payload }) => payload,
+  [addContactError]: (_, { payload }) => payload,
+  [deleteContactError]: (_, { payload }) => payload,
+  [fetchContactRequest]: () => null,
+  [addContactRequest]: () => null,
+  [deleteContactRequest]: () => null,
+});
+
+const isLoading = createReducer(false, {
+  [fetchContactRequest]: () => true,
+  [fetchContactSuccess]: () => false,
+  [fetchContactsError]: () => false,
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
 });
 
 export default combineReducers({
   items,
   filter,
+  error,
+  isLoading,
 });
-
-// const contactsReducer = (state = [], { type, payload }) => {
-//   switch (type) {
-//     case ADD_CONTACTS:
-//       return [payload, ...state];
-//     case DELETE_CONTACTS:
-//       return state.filter((contact) => contact.id !== payload.id);
-//     default:
-//       return state;
-//   }
-// };
-
-// const filterReducer = (state = "", { type, payload }) => {
-//   switch (type) {
-//     case UPDATE_FILTER:
-//       return payload.text;
-//     case CLEAR_FILTER:
-//       return;
-//     default:
-//       return state;
-//   }
-// };

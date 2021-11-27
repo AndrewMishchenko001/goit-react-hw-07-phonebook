@@ -1,12 +1,13 @@
 import { useState } from "react";
 import s from "../ContactForm/ContactForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../redux/contacts/contacts-selector";
-import { addContacts } from "../../redux/contacts/contacts-action";
+import { contactsOperations, contactsSelectors } from "../../redux/contacts";
+import Loader from "../Loader";
 
 function ContactsForm() {
   const dispatch = useDispatch();
-  const contacts = useSelector(getItems);
+  const contacts = useSelector(contactsSelectors.getItems);
+  const isLoading = useSelector(contactsSelectors.getLoading);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
@@ -45,7 +46,7 @@ function ContactsForm() {
     } else if (checkNumber(number)) {
       alert(`${number} is alredy in your phonebook`);
     } else {
-      dispatch(addContacts(name, number));
+      dispatch(contactsOperations.addContacts(name, number));
     }
     reset();
   };
@@ -76,9 +77,12 @@ function ContactsForm() {
           required
         />
       </label>
-      <button className={s.button} type="submit">
-        Add contact
-      </button>
+      {!isLoading && (
+        <button className={s.button} type="submit">
+          Add contact
+        </button>
+      )}
+      {isLoading && <Loader />}
     </form>
   );
 }

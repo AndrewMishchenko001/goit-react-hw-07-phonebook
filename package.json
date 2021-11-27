@@ -13,6 +13,7 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-loader-spinner": "^4.0.0",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
     "redux": "^4.1.2",
@@ -26,7 +27,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "server": "json-server --delay 500 --port 4040 --watch db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewMishchenko001/goit-react-hw-07-phonebook.git"
   },
   "eslintConfig": {
     "extends": [
