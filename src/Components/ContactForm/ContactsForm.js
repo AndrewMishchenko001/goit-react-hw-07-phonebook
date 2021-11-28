@@ -46,7 +46,7 @@ function ContactsForm() {
     } else if (checkNumber(number)) {
       alert(`${number} is alredy in your phonebook`);
     } else {
-      dispatch(contactsOperations.addContacts(name, number));
+      dispatch(contactsOperations.addContact(name, number));
     }
     reset();
   };
