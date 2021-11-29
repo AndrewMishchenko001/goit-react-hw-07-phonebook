@@ -23,7 +23,7 @@ const ContactList = () => {
               <button
                 className={s.btn}
                 type="button"
-                onClick={() => dispatch(contactsOperations.deleteContacts(id))}
+                onClick={() => dispatch(contactsOperations.deleteContact(id))}
               >
                 X
               </button>
